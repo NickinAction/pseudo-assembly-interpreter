@@ -1,0 +1,4 @@
+TODO:
+
+ - need to check for different number types (binary, hex, dec), not only registers.
+
