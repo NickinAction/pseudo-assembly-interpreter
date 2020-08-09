@@ -1,41 +1,34 @@
 #include <iostream>
 #include <string>
-#include "Register.h"
+#include "Processor.h"
 
 using namespace std;
 
-Register registers[10];
 
-void mov (string destination, string location) {
-    if(location[0] == 'r') {
+void Processor::mov(string destination, string location) {
+    if (location[0] == 'r') {
         destination = destination.substr(1);
         string value = value.substr(1);
         registers[stoi(destination)].copy(registers[stoi(value)]);
         cout << "moved " << value[1] << " into " << destination << endl;
-    }
-    else if(location[0] == '#') {
+    } else if (location[0] == '#') {
         destination = destination.substr(1); // destination is now a number, removed 'r'
         string value = location.substr(1);
         registers[stoi(destination)].copy(registers[stoi(value)]);
         cout << "moved #" << value << " into r" << destination << endl;
-    }
-    else if(location[0] == 'x') {
+    } else if (location[0] == 'x') {
         //hex
     }
 
 }
 
-void add (string destination, string first_op, string second_op) {
+void Processor::add(string destination, string first_op, string second_op) {
 
     int first = stoi(first_op), second = stoi(second_op);
-    mov(destination,"#" + to_string(first + second));
+    mov(destination, "#" + to_string(first + second));
 }
 
-void sub (string destination, string first_op, string second_op) {
-
-}
-
-void parse_line (string line) {
+void Processor::parse_line(string line) {
     size_t first_op_pos, second_op_pos, third_op_pos;
     string first_loc, second_loc, destination;
     string instruction;
@@ -59,14 +52,13 @@ void parse_line (string line) {
 
     third_op_pos = line.find('r', second_op_pos + 1); // no need for removing the last 'r'
 
-    if(third_op_pos != string::npos){ // if third argument exists (only sub or add)
+    if (third_op_pos != string::npos) { // if third argument exists (only sub or add)
         destination = first_loc; // moves all values along by one
         first_loc = second_loc;
         second_loc = line.substr(third_op_pos + 1, 1);
 
         destination = 'r' + destination;
-    }
-    else { // if third argument doesnt exist
+    } else { // if third argument doesnt exist
         destination = 'r' + first_loc;
     }
 
