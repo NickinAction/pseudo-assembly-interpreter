@@ -9,8 +9,8 @@ int main() {
 
     string line;
     getline(cin, line);
-    Processor* processor;
-    processor->parse_line(line);
+    Processor processor = Processor();
+    processor.execute_command(line);
 
     return 0;
 }

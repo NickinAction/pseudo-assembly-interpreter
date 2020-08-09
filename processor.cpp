@@ -1,8 +1,10 @@
 #include <iostream>
 #include <string>
 #include "Processor.h"
+#include <vector>
 
 using namespace std;
+
 
 
 void Processor::mov(string destination, string location) {
@@ -28,49 +30,57 @@ void Processor::add(string destination, string first_op, string second_op) {
     mov(destination, "#" + to_string(first + second));
 }
 
-void Processor::parse_line(string line) {
-    size_t first_op_pos, second_op_pos, third_op_pos;
-    string first_loc, second_loc, destination;
-    string instruction;
-    size_t space_loc = line.find(' ');
-
-    if (space_loc == std::string::npos) {
-        throw std::runtime_error("No ' ' character in line");
-    } // throw error if no spaces found in current line
-
-
-    instruction = line.substr(0, space_loc); // determine the instruction of the line
-    cout << "instruction: " << instruction << endl; // output
-
-    line = line.substr(space_loc); // line is now only operands, removes the instruction
-
-    first_op_pos = line.find('r'); // finds the first occurance of 'r' in the line
-    first_loc = line.substr(first_op_pos + 1, 1); // removes the previously found 'r' character from the
-
-    second_op_pos = line.find('r', first_op_pos + 1);
-    second_loc = line.substr(second_op_pos + 1, 1);
-
-    third_op_pos = line.find('r', second_op_pos + 1); // no need for removing the last 'r'
-
-    if (third_op_pos != string::npos) { // if third argument exists (only sub or add)
-        destination = first_loc; // moves all values along by one
-        first_loc = second_loc;
-        second_loc = line.substr(third_op_pos + 1, 1);
-
-        destination = 'r' + destination;
-    } else { // if third argument doesnt exist
-        destination = 'r' + first_loc;
+bool Processor::contains_splitters(char character) {
+    for (int i = 0; i < splitters.size(); ++i) {
+        if(character == splitters[i]) return true;
     }
 
-    //first_loc = 'r' + first_loc;
-    //second_loc = 'r' + second_loc;
+    return false;
+}
 
+vector <string> Processor::split_operands(string line) {
+    vector <string> operands;
+
+    int prev_splitter = -1;
+    string cutout = "";
+
+    for (int i = 0; i < line.size(); ++i) {
+        if(contains_splitters(line[i])) {
+            cutout = line.substr(prev_splitter, i-prev_splitter-1);
+            prev_splitter = i;
+            if (cutout == "") continue;
+            else operands.emplace_back(cutout);
+        }
+    }
+
+}
+
+vector <Register> Processor::get_registers(vector<string> operands) {
+
+}
+
+void Processor::process_command(string line) {
+    auto operands = split_operands(line);
+    string instruction = operands[0];
+    operands.erase(operands.begin());
+
+    auto cur_registers = get_registers(operands);
+
+    // execute_command(instruction, register1, register2, register3);
+
+}
+
+void Processor::execute_command(string instruction) {
     if (instruction == "add") {
-        cout << "adding r" << first_loc << " and r" << second_loc << " and putting into " << destination << endl;
-        add(destination, first_loc, second_loc);
-    }
-    if (instruction == "sub") {
-        cout << "subtracting " << first_loc << " from " << second_loc << " and putting into " << destination << endl;
-    }
 
+    }
+    else if (instruction == "sub") {
+
+    }
+    else if (instruction == "mov") {
+
+    }
+    else {
+        throw runtime_error("Unrecognised command");
+    }
 }
