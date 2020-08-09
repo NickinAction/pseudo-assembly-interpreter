@@ -3,4 +3,4 @@ project(pseudo_assembly_interpreter)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(pseudo_assembly_interpreter main.cpp)
+add_executable(pseudo_assembly_interpreter main.cpp processor.cpp Register.cpp Register.h)

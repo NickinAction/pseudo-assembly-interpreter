@@ -1,4 +1,13 @@
 TODO:
 
  - need to check for different number types (binary, hex, dec), not only registers.
-
+ - add support for registers r10 - r13; currrently only r0-r9
+ - more comments
+ - add support for multiple lines (however many) + branch and goto
+	 - read the entire input first, then divide into lines (stringstream?)
+	 - recognise goto markers, store location and implement goto
+	 - later add conditional branching (simple at first, so NE and EQ)
+	 - add support for flags (needed for conditional branching)
+	 - use CPSR register for conditions
+ - tidy up everything, clean up code. (maybe export some things to to separate functions)
+ - recognise the difference between moving reg to reg and val to reg
