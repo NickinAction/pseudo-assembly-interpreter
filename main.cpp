@@ -10,7 +10,7 @@ int main() {
     string line;
     getline(cin, line);
     Processor processor = Processor();
-    processor.execute_command(line);
+    processor.process_command(line);
 
     return 0;
 }

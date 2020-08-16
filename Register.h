@@ -7,11 +7,16 @@
 
 
 class Register {
-    bool value[32];
-
 public:
+    static const int size = 32;
+    Register() {
+        for (bool & i : this->value) {
+            i = false;
+        }
+    }
+    bool value[size]{};
     void copy(Register to_copy) {
-        for (int i = 0; i < 32; ++i) {
+        for (int i = 0; i < size; ++i) {
             value[i] = to_copy.value[i];
         }
     }

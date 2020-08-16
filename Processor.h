@@ -15,15 +15,16 @@ class Processor {
 
 public:
     void process_command(string line);
-    void execute_command(string instruction);
+    static void execute_command(string& instruction, Register* destination, Register* first_op, Register* second_op);
 private:
-    Register registers[13];
+    Register registers[16];
     Register extra_registers[3];
     Register CPSR;
     vector <string> split_operands(string line);
-    vector <Register> get_registers(vector <string> operands);
-    void mov(string destination, string location);
-    void add(string destination, string first_op, string second_op);
+    static Register from_dec_to_binary(string operand);
+    vector <Register*> get_registers(vector <string> operands);
+    static void mov(Register* destination, Register* source);
+    static void add(Register* destination, Register* first_reg, Register* second_reg);
     bool contains_splitters(char character);
     const array<char, 4> splitters = {' ', ',', '\t', '\r'};
 };
