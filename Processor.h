@@ -5,6 +5,7 @@
 #include <array>
 #include "Register.h"
 #include <vector>
+#include <array>
 
 #ifndef PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H
 #define PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H
@@ -17,9 +18,10 @@ public:
     void process_command(string line);
     static void execute_command(string& instruction, Register* destination, Register* first_op, Register* second_op);
 private:
-    Register registers[16];
+    array <Register, 16> registers;
     Register extra_registers[3];
     Register CPSR;
+    void print_state();
     vector <string> split_operands(string line);
     static Register from_dec_to_binary(string operand);
     vector <Register*> get_registers(vector <string> operands);
