@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 project(pseudo_assembly_interpreter)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
-add_executable(pseudo_assembly_interpreter main.cpp processor.cpp Register.cpp Register.h Processor.h)
+add_executable(pseudo_assembly_interpreter main.cpp processor.cpp Register.cpp Register.h Processor.h Parser.cpp Parser.h consts.h)

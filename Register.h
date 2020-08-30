@@ -5,6 +5,7 @@
 #ifndef PSEUDO_ASSEMBLY_INTERPRETER_REGISTER_H
 #define PSEUDO_ASSEMBLY_INTERPRETER_REGISTER_H
 
+#include "consts.h"
 
 class Register {
 public:
@@ -18,6 +19,11 @@ public:
     void copy(Register to_copy) {
         for (int i = 0; i < size; ++i) {
             value[i] = to_copy.value[i];
+        }
+    }
+    void copy(bin to_copy) {
+        for (int i = 0; i < to_copy.size(); ++i) {
+            value[i] = to_copy[i];
         }
     }
 };
