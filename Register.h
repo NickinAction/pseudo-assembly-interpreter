@@ -26,6 +26,17 @@ public:
             value[i] = to_copy[i];
         }
     }
+    void increment() {
+        int carry = 1, sum, new_value;
+        for (bool & i : this->value) {
+            if(carry == 0) break;
+            sum = i + carry;
+            new_value = sum%2;
+            carry = sum/2;
+
+            i = new_value;
+        }
+    }
 };
 
 

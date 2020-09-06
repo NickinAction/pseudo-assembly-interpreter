@@ -11,7 +11,7 @@ void Processor::mov(Register *destination, Register *location) {
 
 }
 
- void Processor::add(Register *destination, Register *first_reg, Register *second_reg) {
+void Processor::add(Register *destination, Register *first_reg, Register *second_reg) {
 
     int carry = 0, sum, value;
     for (int i = 0; i < Register::size; i++) {
@@ -24,15 +24,32 @@ void Processor::mov(Register *destination, Register *location) {
     bool overflow = (carry == 1);
 }
 
+void Processor::sub(Register *destination, Register *first_reg, Register *second_reg) {
 
+    int num = extra_registers_used;
+    extra_registers_used++;
+    twos_complement(&extra_registers[num], second_reg);
+    add(destination, first_reg, &extra_registers[num]);
+}
 
+void Processor::twos_complement(Register *destination, Register *original) {
+    for (int i = 0; i < Register::size; ++i) {
+        destination->value[i] = !original->value[i];
+    }
 
+    destination->increment();
+
+    cout << "Two's complement: ";
+    for (bool i : destination->value) {
+        cout << i;
+    }
+    cout << endl;
+}
 
 vector <Register*> Processor::get_registers(vector<string> operands) {
 
     vector <Register*> return_registers;
     vector<int> register_indices = parser->get_registers_indices(operands);
-    int extra_registers_used = 0;
 
     for (int i = 0; i < register_indices.size(); ++i) {
         int ri = register_indices[i];
@@ -58,6 +75,7 @@ void Processor::process_command(string line) {
     auto operands = parser->split_operands(line);
     string instruction = operands[0];
     operands.erase(operands.begin()); // remove the instruction
+    extra_registers_used = 0;
 
     auto cur_registers = get_registers(operands);
 
@@ -71,10 +89,10 @@ void Processor::execute_command(string &instruction, Register* destination, Regi
     if (instruction == "add") {
         add(destination, first_op, second_op);
     }
-    /*
     else if (instruction == "sub") {
-
+        sub(destination, first_op, second_op);
     }
+    /*
     else if (instruction == "mov") {
 
     }
