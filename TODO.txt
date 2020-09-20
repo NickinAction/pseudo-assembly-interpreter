@@ -6,4 +6,5 @@ TODO:
 	 - recognise goto markers, store location and implement goto
 	 - later add conditional branching (simple at first, so NE and EQ)
 	 - add support for flags (needed for conditional branching)
-	 - use CPSR register for conditions
+	 - use CPSR register for condition
+ - unit tests
