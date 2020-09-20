@@ -46,12 +46,13 @@ vector <string> Parser::split_operands(string line) {
     cout << endl;
 
     return operands;
-
 }
 
 bin Parser::from_dec_to_binary(const string& operand) {
     bin return_arr;
     return_arr.resize(arrays_size);
+
+    cout << "operand: " << operand << endl;
 
     int int_op = stoi(operand), remainder;
     for (int i = 0; i < arrays_size; i++) {
@@ -60,6 +61,7 @@ bin Parser::from_dec_to_binary(const string& operand) {
         return_arr[i] = remainder;
     }
 
+    cout << "got to the end";
     return return_arr;
 }
 
@@ -67,7 +69,6 @@ vector<int> Parser::get_registers_indices(vector<string> operands) {
     cout << "Number of operands: " << operands.size() << endl;
     vector<int> return_registers_indices;
 
-    int extra_registers_used = 0; //tracks how many extra registers were used.
     for (auto & operand : operands) {
 
         cout << "Current operand: \"" << operand << "\"" << endl;
@@ -80,7 +81,7 @@ vector<int> Parser::get_registers_indices(vector<string> operands) {
                 return_registers_indices.emplace_back(stoi(operand.substr(1)));
                 break;
             case '#':
-                return_registers_indices.emplace_back(NO_REGISTER);
+                return_registers_indices.emplace_back(this->NO_REGISTER);
                 break;
             default:
                 string error_message = "Cannot decipher the constant value: operand starts with ";
@@ -97,7 +98,24 @@ vector<int> Parser::get_registers_indices(vector<string> operands) {
     }
 
     if(operands.size() == 2) {
-        return_registers_indices.insert(return_registers_indices.begin(), return_registers_indices.front());
-    }
+        return_registers_indices.insert(return_registers_indices.begin(), return_registers_indices[0]);
+    } //! get_registers()?
     return return_registers_indices;
+}
+
+string Parser::from_bin_to_string(const bin &binary) {
+    int digits = binary.size();
+    //cout << "Digits: " << digits << endl;
+    char charArray[digits+1];
+
+    charArray[digits] = '\0';
+
+    for (int i = 0; i < digits; i++) charArray[i] = '.';
+
+    for (int i = 0; i < digits; ++i) {
+        charArray[i] = (binary[i] == 1) ? '1' : '0';
+        cout << i << " " << charArray << " binary[i] " << binary[i] << endl;
+    }
+
+    return string(charArray);
 }

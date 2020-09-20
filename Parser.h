@@ -23,6 +23,7 @@ public:
     const int NO_REGISTER = -1;
     static vector <string> split_operands(string line);
     bin from_dec_to_binary(const string& operand);
+    static string from_bin_to_string(const bin& binary);
     vector <int> get_registers_indices(vector <string> operands);
     static bool contains_splitters(char character);
 };

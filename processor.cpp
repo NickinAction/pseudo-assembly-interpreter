@@ -8,7 +8,7 @@ using namespace std;
 
 
 void Processor::mov(Register *destination, Register *location) {
-
+    destination->copy(*location);
 }
 
 void Processor::add(Register *destination, Register *first_reg, Register *second_reg) {
@@ -50,16 +50,30 @@ vector <Register*> Processor::get_registers(vector<string> operands) {
 
     vector <Register*> return_registers;
     vector<int> register_indices = parser->get_registers_indices(operands);
+    cout << "Register indices:";
+    for (int i: register_indices) {
+        cout << " " << i;
+    }
+    cout << endl;
 
     for (int i = 0; i < register_indices.size(); ++i) {
         int ri = register_indices[i];
         if(ri >= 0 && ri < registers.size()) {
+            cout << "Register added: " << ri << endl;
             return_registers.emplace_back(&registers[ri]);
         }
         else if (ri == parser->NO_REGISTER) {
+            cout << "No standard register provided" << endl;
+            cout << "\":" << operands[i]  << "\":" << endl;
             vector<bool> bin_value = parser->from_dec_to_binary(operands[i].substr(1));
-            extra_registers[extra_registers_used].copy(bin_value); // converting straight to Register
-            return_registers.emplace_back(&extra_registers[extra_registers_used]);
+            cout << "value to write in extra register: ";
+            for (int i: bin_value) {
+                cout << i;
+            }
+            cout << endl;
+            int num = extra_registers_used;
+            extra_registers[num].copy(bin_value); // converting straight to Register
+            return_registers.emplace_back(&extra_registers[num]);
             cout << "Extra registers used: " << extra_registers_used << endl;
             extra_registers_used++;
         }
@@ -92,16 +106,13 @@ void Processor::execute_command(string &instruction, Register* destination, Regi
     else if (instruction == "sub") {
         sub(destination, first_op, second_op);
     }
-    /*
     else if (instruction == "mov") {
-
+        mov(destination, second_op);
     }
-     */
     else {
         throw runtime_error("Unrecognised command");
     }
 }
-
 
 void Processor::print_state() {
     for (int i = 0; i < registers.size(); ++i) {
