@@ -3,6 +3,8 @@
 //
 #include "gtest/gtest.h"
 #include "Parser.h"
+#include "Processor.h"
+
 
 TEST(Parser, split1) {
     ASSERT_TRUE(Parser::contains_splitters(' '));

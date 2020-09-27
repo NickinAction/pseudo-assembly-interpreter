@@ -5,8 +5,6 @@
 #include "Parser.h"
 #include <iostream>
 
-
-
 using namespace std;
 
 //constexpr const array<char, 4> Parser::splitters = {' ', ',', '\t', '\r'};

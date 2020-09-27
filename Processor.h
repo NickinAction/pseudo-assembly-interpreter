@@ -5,6 +5,7 @@
 #include "Register.h"
 #include "Parser.h"
 #include <vector>
+#include "ALU.h"
 
 #ifndef PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H
 #define PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H
@@ -12,25 +13,26 @@
 using namespace std;
 
 class Processor {
+private:
+    Parser* parser;
+    ALU* alu;
 
 public:
     Processor() {
         parser = new Parser(REGISTER_SIZE);
+        alu = new ALU();
     }
     void process_command(string line);
     void execute_command(string& instruction, Register* destination, Register* first_op, Register* second_op);
-private:
+
+//private:
     const int REGISTER_SIZE = Register::size;
-    Parser* parser;
     array <Register, 16> registers;
     Register extra_registers[3];
-    int extra_registers_used = 0;
     Register CPSR;
     void print_state();
     vector <Register*> get_registers(vector <string> operands);
-    static void twos_complement(Register* destination, Register* original);
-    static void mov(Register* destination, Register* source);
-    static void add(Register* destination, Register* first_reg, Register* second_reg);
-    void sub(Register* destination, Register* first_reg, Register* second_reg);
+    Register* get_extra_register();
+    int extra_registers_used = 0;
 };
 #endif //PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H

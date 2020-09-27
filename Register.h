@@ -6,6 +6,10 @@
 #define PSEUDO_ASSEMBLY_INTERPRETER_REGISTER_H
 
 #include "consts.h"
+#include "Parser.h"
+#include <iostream>
+
+using namespace std;
 
 class Register {
 public:

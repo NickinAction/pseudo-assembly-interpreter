@@ -2,49 +2,11 @@
 #include <string>
 #include "Processor.h"
 #include <vector>
+#include "ALU.h"
 
 using namespace std;
 
 
-
-void Processor::mov(Register *destination, Register *location) {
-    destination->copy(*location);
-}
-
-void Processor::add(Register *destination, Register *first_reg, Register *second_reg) {
-
-    int carry = 0, sum, value;
-    for (int i = 0; i < Register::size; i++) {
-        sum = first_reg->value[i] + second_reg->value[i] + carry;
-        value = sum%2;
-        carry = sum/2;
-
-        destination->value[i] = value;
-    }
-    bool overflow = (carry == 1);
-}
-
-void Processor::sub(Register *destination, Register *first_reg, Register *second_reg) {
-
-    int num = extra_registers_used;
-    extra_registers_used++;
-    twos_complement(&extra_registers[num], second_reg);
-    add(destination, first_reg, &extra_registers[num]);
-}
-
-void Processor::twos_complement(Register *destination, Register *original) {
-    for (int i = 0; i < Register::size; ++i) {
-        destination->value[i] = !original->value[i];
-    }
-
-    destination->increment();
-
-    cout << "Two's complement: ";
-    for (bool i : destination->value) {
-        cout << i;
-    }
-    cout << endl;
-}
 
 vector <Register*> Processor::get_registers(vector<string> operands) {
 
@@ -99,15 +61,20 @@ void Processor::process_command(string line) {
 
 }
 
+Register* Processor::get_extra_register() {
+    extra_registers_used++;
+    return &extra_registers[extra_registers_used];
+}
+
 void Processor::execute_command(string &instruction, Register* destination, Register* first_op, Register* second_op) {
     if (instruction == "add") {
-        add(destination, first_op, second_op);
+        ALU::add(destination, first_op, second_op);
     }
     else if (instruction == "sub") {
-        sub(destination, first_op, second_op);
+        ALU::sub(destination, first_op, second_op, get_extra_register());
     }
     else if (instruction == "mov") {
-        mov(destination, second_op);
+        ALU::mov(destination, second_op);
     }
     else {
         throw runtime_error("Unrecognised command");
