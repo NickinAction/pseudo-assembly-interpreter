@@ -53,6 +53,8 @@ bin Parser::from_dec_to_binary(const string& operand) {
     cout << "operand: " << operand << endl;
 
     int int_op = stoi(operand), remainder;
+    // TODO: do this without stoi
+
     for (int i = 0; i < arrays_size; i++) {
         remainder = int_op%2;
         int_op/=2;
