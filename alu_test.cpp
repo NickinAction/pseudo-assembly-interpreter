@@ -7,30 +7,29 @@
 #include "consts.h"
 #include "Processor.h"
 
-class ALU_tester : public ::testing::Environment {
+class ALU_tester {
 public:
 
-    void SetUpTestCase();
+    ALU_tester();
 
-    static void fill(string operand, Register* reg) {
-        Parser parser(reg->size);
+    static void fill(const string& operand, Register* reg) {
+        Parser parser(Register::size);
         bin new_operands = parser.from_dec_to_binary(operand);
 
     }
 
     static bool compare(Register a, Register b) {
-        if (a.size != b.size) return false;
-        for (int i = 0; i < a.size; i++) {
+        for (int i = 0; i < Register::size; i++) {
             if (a.value[i] != b.value[i]) return false;
         }
         return true;
     }
 
-    static Register *destination;
-    static Register *first_reg, *second_reg, *test_destination;
+    Register *destination;
+    Register *first_reg, *second_reg, *test_destination;
 };
 
-void ALU_tester::SetUpTestCase() {
+ALU_tester::ALU_tester() {
     destination = new Register();
     first_reg = new Register();
     second_reg = new Register();
@@ -42,8 +41,9 @@ void ALU_tester::SetUpTestCase() {
 }
 
 TEST (ALU_tester, add) {
+    ALU_tester tester = ALU_tester();
 
-    ALU::add(ALU_tester::test_destination, ALU_tester::first_reg, ALU_tester::second_reg);
+    ALU::add(tester.test_destination,tester.first_reg, tester.second_reg);
 
-    EXPECT_TRUE(ALU_tester::compare(*ALU_tester::destination, *ALU_tester::test_destination));
+    EXPECT_TRUE(ALU_tester::compare(*tester.destination, *tester.test_destination));
 }
