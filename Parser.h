@@ -10,10 +10,12 @@
 #define PSEUDO_ASSEMBLY_INTERPRETER_PARSER_H
 
 using namespace std;
+
 class Parser {
 private:
     int arrays_size;
     inline constexpr const static array<char, 4> splitters = {' ', ',', '\t', '\r'};
+    static longArith string_to_longArith(const string& num);
 
 public:
     explicit Parser(int arrays_size) {
@@ -26,6 +28,7 @@ public:
     static string from_bin_to_string(const bin& binary);
     vector <int> get_registers_indices(vector <string> operands);
     static bool contains_splitters(char character);
+    static void divide_dec_by_two(const longArith& num, longArith& result, int& remainder);
 };
 
 

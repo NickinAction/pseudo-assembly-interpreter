@@ -62,3 +62,52 @@ TEST(Parser, register_indices) {
     EXPECT_EQ(int(indices[2]), parser.NO_REGISTER);
 
 }
+
+//divide_dec_by_two tests
+TEST(Parser, t0) {
+    longArith res;
+    int rem;
+    Parser::divide_dec_by_two(longArith({0}), res, rem);
+    ASSERT_EQ(longArith({0}), res);
+    ASSERT_EQ(0, rem);
+}
+
+TEST(Parser, t1) {
+    longArith res;
+    int rem;
+    Parser::divide_dec_by_two(longArith({1}), res, rem);
+    ASSERT_EQ(longArith({0}), res);
+    ASSERT_EQ(1, rem);
+}
+
+TEST(Parser, t2) {
+    longArith res;
+    int rem;
+    Parser::divide_dec_by_two(longArith({2}), res, rem);
+    ASSERT_EQ(longArith({1}), res);
+    ASSERT_EQ(0, rem);
+}
+
+TEST(Parser, t7) {
+    longArith res;
+    int rem;
+    Parser::divide_dec_by_two(longArith({7}), res, rem);
+    ASSERT_EQ(longArith({3}), res);
+    ASSERT_EQ(1, rem);
+}
+
+TEST(Parser, t145) {
+    longArith res;
+    int rem;
+    Parser::divide_dec_by_two(longArith({145}), res, rem);
+    ASSERT_EQ(longArith({72}), res);
+    ASSERT_EQ(1, rem);
+}
+
+TEST(Parser, t140005) {
+    longArith res;
+    int rem;
+    Parser::divide_dec_by_two(longArith({140005}), res, rem);
+    ASSERT_EQ(longArith({70002}), res);
+    ASSERT_EQ(1, rem);
+}

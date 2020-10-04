@@ -47,22 +47,60 @@ vector <string> Parser::split_operands(string line) {
 }
 
 bin Parser::from_dec_to_binary(const string& operand) {
+    auto operand_la = string_to_longArith(operand);
     bin return_arr;
     return_arr.resize(arrays_size);
 
     cout << "operand: " << operand << endl;
 
-    int int_op = stoi(operand), remainder;
-    // TODO: do this without stoi
+    int remainder;
+
+    longArith temp;
 
     for (int i = 0; i < arrays_size; i++) {
-        remainder = int_op%2;
-        int_op/=2;
+        remainder = operand_la[i]%2;
+        divide_dec_by_two(operand_la, temp, remainder);
+        operand_la = temp;
         return_arr[i] = remainder;
     }
 
     cout << "got to the end";
     return return_arr;
+}
+
+longArith Parser::string_to_longArith(const string& num) {
+    longArith converted;
+
+    for (char c : num) {
+        converted.emplace_back(c - '0');
+    }
+    return converted;
+}
+
+void Parser::divide_dec_by_two(const longArith& num, longArith& result, int& remainder) {
+
+    int curSubtrahend = 0;
+    int curResult = 0;
+    result.clear();
+
+    bool first_number = true;
+
+    for (int digit : num) {
+        curSubtrahend = (curSubtrahend*10) + digit;
+        curResult = curSubtrahend /2;
+        if (curResult > 0) {
+            result.emplace_back(curResult);
+            if(first_number) first_number = false;
+            curSubtrahend = curSubtrahend%2;
+        }
+        else {
+            if(!first_number) result.emplace_back(0);
+        }
+    }
+
+    if(first_number) result.emplace_back(0);
+
+    remainder = curSubtrahend;
 }
 
 vector<int> Parser::get_registers_indices(vector<string> operands) {

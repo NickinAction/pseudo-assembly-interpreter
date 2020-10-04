@@ -9,4 +9,4 @@ TODO:
 	 - use CPSR register for condition
  - unit tests (WIP) - add ALU tests and processor tests
  - add support for larger numbers (get rid of stoi)
- -
+ - figure out tests accessing private functions
