@@ -10,7 +10,7 @@ using namespace std;
 //constexpr const array<char, 4> Parser::splitters = {' ', ',', '\t', '\r'};
 
 bool Parser::contains_splitters(char character) {
-    for (int i = 0; i < splitters.size(); ++i) {
+    for (unsigned i = 0; i < splitters.size(); ++i) {
         if(character == splitters[i]) return true;
     }
 
@@ -23,7 +23,7 @@ vector <string> Parser::split_operands(string line) {
     int prev_splitter = -1;
     string cutout;
 
-    for (int i = 0; i < line.size(); ++i) {
+    for (unsigned i = 0; i < line.size(); ++i) {
         if(contains_splitters(line[i])) {
             cutout = line.substr(prev_splitter+1, i-prev_splitter-1);
             prev_splitter = i;
@@ -57,7 +57,7 @@ bin Parser::from_dec_to_binary(const string& operand) {
 
     longArith temp;
 
-    for (int i = 0; i < arrays_size; i++) {
+    for (unsigned i = 0; i < arrays_size; i++) {
         remainder = operand_la[i]%2;
         divide_dec_by_two(operand_la, temp, remainder);
         operand_la = temp;
@@ -142,15 +142,15 @@ vector<int> Parser::get_registers_indices(vector<string> operands) {
 }
 
 string Parser::from_bin_to_string(const bin &binary) {
-    int digits = binary.size();
+    unsigned digits = binary.size();
     //cout << "Digits: " << digits << endl;
     char charArray[digits+1];
 
     charArray[digits] = '\0';
 
-    for (int i = 0; i < digits; i++) charArray[i] = '.';
+    for (unsigned i = 0; i < digits; i++) charArray[i] = '.';
 
-    for (int i = 0; i < digits; ++i) {
+    for (unsigned i = 0; i < digits; ++i) {
         charArray[i] = (binary[i] == 1) ? '1' : '0';
         cout << i << " " << charArray << " binary[i] " << binary[i] << endl;
     }

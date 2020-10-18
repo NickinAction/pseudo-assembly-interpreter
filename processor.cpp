@@ -17,7 +17,7 @@ vector <Register*> Processor::get_registers(vector<string> operands) {
     }
     cout << endl;
 
-    for (int i = 0; i < register_indices.size(); ++i) {
+    for (unsigned i = 0; i < register_indices.size(); ++i) {
         int ri = register_indices[i];
         if(ri >= 0 && ri < registers.size()) {
             cout << "Register added: " << ri << endl;
@@ -81,7 +81,7 @@ void Processor::execute_command(string &instruction, Register* destination, Regi
 }
 
 void Processor::print_state() {
-    for (int i = 0; i < registers.size(); ++i) {
+    for (unsigned i = 0; i < registers.size(); ++i) {
         cout << "R" << i << ": ";
         for (int j = Register::size-1; j >= 0; j--) {
             cout << registers[i].value[j];
