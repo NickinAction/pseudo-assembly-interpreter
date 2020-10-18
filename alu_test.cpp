@@ -48,12 +48,10 @@ TEST (ALU_tester, add) {
     EXPECT_TRUE(ALU_tester::compare(*tester.destination, *tester.test_destination));
 }
 
-
-// TODO: fix the test
 TEST (ALU_tester, addOverflow) {
     ALU_tester tester = ALU_tester("0", "2147483647", "2147484647");
 
-    ALU::add(tester.test_destination,tester.first_reg, tester.second_reg);
+    ALU::add(tester.test_destination, tester.first_reg, tester.second_reg);
 
     EXPECT_TRUE(ALU_tester::compare(*tester.destination, *tester.test_destination));
 }

@@ -3,10 +3,9 @@
 #include "Processor.h"
 #include <vector>
 #include "ALU.h"
+#include "Register.h"
 
 using namespace std;
-
-
 
 vector <Register*> Processor::get_registers(vector<string> operands) {
 

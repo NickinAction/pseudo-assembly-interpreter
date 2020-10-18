@@ -5,9 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(Google_tests)
 
-add_executable(pseudo_assembly_interpreter main.cpp processor.cpp Register.cpp Parser.cpp)
+add_executable(pseudo_assembly_interpreter main.cpp processor.cpp Register.cpp Parser.cpp ALU.cpp)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
-add_executable(pai_unittest processor.cpp Register.cpp Parser.cpp Parser_test.cpp Processor_test.cpp ALU.cpp ALU.h alu_test.cpp)
+add_executable(pai_unittest processor.cpp Register.cpp Parser.cpp Parser_test.cpp Processor_test.cpp ALU.cpp alu_test.cpp)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 target_link_libraries(pai_unittest gtest gtest_main)

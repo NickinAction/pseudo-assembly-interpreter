@@ -10,7 +10,6 @@ TEST(Parser, split1) {
     ASSERT_TRUE(Parser::contains_splitters(' '));
 }
 
-
 TEST(Parser, split_operands_normal) {
     auto operands = Parser::split_operands("add r1, r2, #1");
     ASSERT_EQ(operands.size(), 4);
@@ -64,6 +63,7 @@ TEST(Parser, register_indices) {
 }
 
 //divide_dec_by_two tests
+
 TEST(Parser, t0) {
     longArith res;
     int rem;
