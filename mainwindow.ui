@@ -25,7 +25,13 @@
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QTextEdit" name="codeArea"/>
+      <widget class="QTextEdit" name="codeArea">
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+      </widget>
      </item>
      <item>
       <layout class="QVBoxLayout" name="labelLayout">

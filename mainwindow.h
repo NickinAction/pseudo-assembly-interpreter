@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "Processor.h"
+#include <QLabel>
 
 namespace Ui {
 class MainWindow;
@@ -19,8 +20,11 @@ public:
 private slots:
     //void on_pushButton_clicked();
     void execute();
+    QVector <QString> readInput(QString labelText);
+    void displayState();
 
 private:
+    QVector <QLabel*> labels;
     Ui::MainWindow *ui;
     Processor* processor;
 };

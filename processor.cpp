@@ -11,31 +11,20 @@ vector <Register*> Processor::get_registers(vector<string> operands) {
 
     vector <Register*> return_registers;
     vector<int> register_indices = parser->get_registers_indices(operands);
-    cout << "Register indices:";
-    for (int i: register_indices) {
-        cout << " " << i;
-    }
-    cout << endl;
 
     for (unsigned i = 0; i < register_indices.size(); ++i) {
         int ri = register_indices[i];
         if(ri >= 0 && ri < registers.size()) {
-            cout << "Register added: " << ri << endl;
+            //cout << "Register added: " << ri << endl;
             return_registers.emplace_back(&registers[ri]);
         }
         else if (ri == parser->NO_REGISTER) {
-            cout << "No standard register provided" << endl;
-            cout << "\":" << operands[i]  << "\":" << endl;
+            //cout << "No standard register provided" << endl;
             vector<bool> bin_value = parser->from_dec_to_binary(operands[i].substr(1));
-            cout << "value to write in extra register: ";
-            for (int i: bin_value) {
-                cout << i;
-            }
-            cout << endl;
             int num = extra_registers_used;
             extra_registers[num].copy(bin_value); // converting straight to Register
             return_registers.emplace_back(&extra_registers[num]);
-            cout << "Extra registers used: " << extra_registers_used << endl;
+            //cout << "Extra registers used: " << extra_registers_used << endl;
             extra_registers_used++;
         }
         else {
@@ -56,7 +45,7 @@ void Processor::process_command(string line) {
 
     execute_command(instruction, cur_registers[0], cur_registers[1], cur_registers[2]);
 
-    print_state();
+    //print_state();
 
 }
 

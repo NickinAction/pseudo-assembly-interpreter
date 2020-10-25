@@ -8,6 +8,7 @@
 //#include "consts.h"
 #include "Parser.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -40,6 +41,16 @@ public:
 
             i = new_value;
         }
+    }
+    string toString() {
+        char arr [this->size];
+
+        for (int i = 0; i < this->size; i++) {
+            arr[i] = this->value[i] + '0';
+        }
+        string s = string(arr, this->size);
+        reverse(s.begin(), s.end());
+        return s;
     }
 };
 
