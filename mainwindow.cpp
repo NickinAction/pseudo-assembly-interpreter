@@ -2,15 +2,15 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <string>
-#include "Register.h"
-#include "Processor.h"
 #include <QDebug>
+#include <QLabel>
 
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->codeArea->setFixedWidth(600);
 
     processor = new Processor();
 
@@ -24,14 +24,30 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::execute() {
-    string line;
-    bool eof_reached;
-    qDebug() << "execution started";
-    do {
-        //getline(cin, line);
-        processor->process_command("mov r1, #5");
-        //eof_reached = cin.eof();
-        eof_reached = true;
 
-    } while(!eof_reached);
+    QString labelText = ui->codeArea->toPlainText();
+
+    QVector <QString> codeLines = readInput(labelText);
 }
+
+QVector <QString> MainWindow::readInput(QString labelText) {
+
+    QVector <QString> returnVector;
+    int firstCharacter = 0;
+
+    for (int i = 0; i < labelText; i++) {
+        if(labelText[i] == '\n') {
+            QString line = labelText.mid(firstCharacter, i-firstCharacter);
+            if(line != "") {
+                returnVector.push_back(line);
+            }
+            firstCharacter = i+1;
+        }
+    }
+    if(labelText.mid(firstCharacter) != "") {
+        returnVector.push_back(labelText.mid(firstCharacter));
+    }
+
+    return returnVector;
+}
+
