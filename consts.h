@@ -6,7 +6,6 @@
 #define PSEUDO_ASSEMBLY_INTERPRETER_CONSTS_H
 #include <vector>
 
-typedef std::vector<bool> bin;
 typedef std::vector<int> longArith;
 
 #endif //PSEUDO_ASSEMBLY_INTERPRETER_CONSTS_H

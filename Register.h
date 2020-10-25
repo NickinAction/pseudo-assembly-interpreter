@@ -5,7 +5,7 @@
 #ifndef PSEUDO_ASSEMBLY_INTERPRETER_REGISTER_H
 #define PSEUDO_ASSEMBLY_INTERPRETER_REGISTER_H
 
-#include "consts.h"
+//#include "consts.h"
 #include "Parser.h"
 #include <iostream>
 
@@ -25,7 +25,7 @@ public:
             value[i] = to_copy.value[i];
         }
     }
-    void copy(bin to_copy) {
+    void copy(binary to_copy) {
         for (int i = 0; i < to_copy.size(); ++i) {
             value[i] = to_copy[i];
         }

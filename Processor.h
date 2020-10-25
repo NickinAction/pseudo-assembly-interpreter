@@ -1,14 +1,15 @@
 //
 // Created by Nick on 8/9/2020.
 //
-#include <array>
-#include "Register.h"
-#include "Parser.h"
-#include <vector>
-#include "ALU.h"
 
 #ifndef PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H
 #define PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H
+
+#include <array>
+#include "Register.h"
+#include <vector>
+#include "ALU.h"
+
 
 using namespace std;
 

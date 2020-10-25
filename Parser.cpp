@@ -46,9 +46,9 @@ vector <string> Parser::split_operands(string line) {
     return operands;
 }
 
-bin Parser::from_dec_to_binary(const string& operand) {
+binary Parser::from_dec_to_binary(const string& operand) {
     auto operand_la = string_to_longArith(operand);
-    bin return_arr;
+    binary return_arr;
     return_arr.resize(arrays_size);
 
     cout << "operand: " << operand << endl;
@@ -141,7 +141,7 @@ vector<int> Parser::get_registers_indices(vector<string> operands) {
     return return_registers_indices;
 }
 
-string Parser::from_bin_to_string(const bin &binary) {
+string Parser::from_bin_to_string(const binary &binary) {
     unsigned digits = binary.size();
     //cout << "Digits: " << digits << endl;
     char charArray[digits+1];

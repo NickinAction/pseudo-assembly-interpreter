@@ -1,13 +1,14 @@
 //
 // Created by Nick on 8/30/2020.
 //
-#include <array>
-#include <vector>
-#include "consts.h"
 
 #ifndef PSEUDO_ASSEMBLY_INTERPRETER_PARSER_H
 #define PSEUDO_ASSEMBLY_INTERPRETER_PARSER_H
 
+#include <array>
+#include <vector>
+#include "consts.h"
+typedef std::vector<bool> binary;
 
 using namespace std;
 
@@ -24,8 +25,8 @@ public:
 
     const int NO_REGISTER = -1;
     static vector <string> split_operands(string line);
-    bin from_dec_to_binary(const string& operand);
-    static string from_bin_to_string(const bin& binary);
+    binary from_dec_to_binary(const string& operand);
+    static string from_bin_to_string(const binary& binary);
     vector <int> get_registers_indices(vector <string> operands);
     static bool contains_splitters(char character);
     static void divide_dec_by_two(const longArith& num, longArith& result, int& remainder);
