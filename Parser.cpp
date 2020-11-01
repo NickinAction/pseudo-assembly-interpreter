@@ -135,10 +135,8 @@ vector<int> Parser::get_registers_indices(vector<string> operands) {
         }*/
     }
 
-    if(operands.size() == 2) {
-        return_registers_indices.insert(return_registers_indices.begin(), return_registers_indices[0]);
-    } //! get_registers()?
     return return_registers_indices;
+
 }
 
 string Parser::from_bin_to_string(const binary &binary) {

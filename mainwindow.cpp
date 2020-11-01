@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         ui->labelLayout->addWidget(label, 1, Qt::AlignHCenter);
     }
 
+
     connect(this->ui->execute_button, SIGNAL(clicked()), this, SLOT(execute()));
 
 }

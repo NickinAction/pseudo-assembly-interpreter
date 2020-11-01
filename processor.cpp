@@ -10,6 +10,10 @@ using namespace std;
 vector <Register*> Processor::get_registers(vector<string> operands) {
 
     vector <Register*> return_registers;
+    if(operands.size() == 2) {
+        operands.push_back(operands.back());
+    }
+
     vector<int> register_indices = parser->get_registers_indices(operands);
 
     for (unsigned i = 0; i < register_indices.size(); ++i) {
@@ -19,6 +23,8 @@ vector <Register*> Processor::get_registers(vector<string> operands) {
             return_registers.emplace_back(&registers[ri]);
         }
         else if (ri == parser->NO_REGISTER) {
+            cout << operands[i] << endl;
+            cout << operands[i].substr(1) << endl;
             //cout << "No standard register provided" << endl;
             vector<bool> bin_value = parser->from_dec_to_binary(operands[i].substr(1));
             int num = extra_registers_used;
