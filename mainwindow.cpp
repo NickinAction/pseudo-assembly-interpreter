@@ -43,6 +43,10 @@ void MainWindow::execute() {
 
     QVector <QString> codeLines = readInput(labelText);
 
+    Parser::remove_surrounding_spaces(codeLines);
+
+    processor->collect_markers(codeLines);
+
     for(int i = 0; i < codeLines.size(); i++) {
         processor->process_command(codeLines[i].toStdString());
     }

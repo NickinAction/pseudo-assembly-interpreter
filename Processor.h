@@ -9,7 +9,10 @@
 #include "Register.h"
 #include <vector>
 #include "ALU.h"
-
+#include <map>
+#include <QVector>
+#include <QString>
+#include <QMap>
 
 using namespace std;
 
@@ -23,6 +26,8 @@ public:
         parser = new Parser(REGISTER_SIZE);
         alu = new ALU();
     }
+
+    QMap <QString, int> branches;
     void process_command(string line);
     void execute_command(string& instruction, Register* destination, Register* first_op, Register* second_op);
 
@@ -35,5 +40,6 @@ public:
     vector <Register*> get_registers(vector <string> operands);
     Register* get_extra_register();
     int extra_registers_used = 0;
+    void collect_markers(QVector <QString> &codeLines);
 };
 #endif //PSEUDO_ASSEMBLY_INTERPRETER_PROCESSOR_H

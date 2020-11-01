@@ -4,10 +4,23 @@
 
 #include "Parser.h"
 #include <iostream>
+#include <string>
+#include <QRegExp>
+#include <QString>
+#include "consts.h"
 
 using namespace std;
 
 //constexpr const array<char, 4> Parser::splitters = {' ', ',', '\t', '\r'};
+
+void Parser::remove_surrounding_spaces(QVector <QString> codeLines) {
+    for (int i = 0; i < codeLines.size(); i++) {
+        codeLines[i].replace(QRegExp("^\\s+"), "");
+        codeLines[i].replace(QRegExp("\\s+$"), "");
+    }
+
+
+}
 
 bool Parser::contains_splitters(char character) {
     for (unsigned i = 0; i < splitters.size(); ++i) {
@@ -119,7 +132,7 @@ vector<int> Parser::get_registers_indices(vector<string> operands) {
                 return_registers_indices.emplace_back(stoi(operand.substr(1)));
                 break;
             case '#':
-                return_registers_indices.emplace_back(this->NO_REGISTER);
+                return_registers_indices.emplace_back(NO_REGISTER);
                 break;
             default:
                 string error_message = "Cannot decipher the constant value: operand starts with ";

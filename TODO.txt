@@ -5,7 +5,7 @@ TODO:
 	 - recognise goto markers, store location and implement goto
 	 - later add conditional branching (simple at first, so NE and EQ)
 	 - add support for flags (needed for conditional branching)
-	 - use CPSR register for condition
+	 - update CSPR register with every command + display it on the screen
  - figure out tests accessing private functions
  - add syntax check (compilation) before executing commands.
 

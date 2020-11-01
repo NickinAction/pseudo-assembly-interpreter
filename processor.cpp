@@ -4,8 +4,23 @@
 #include <vector>
 #include "ALU.h"
 #include "Register.h"
+#include <QMap>
+#include "consts.h"
+#include <QDebug>
 
 using namespace std;
+
+
+void Processor::collect_markers(QVector <QString> &codeLines) {
+    for (int i = 0; i < codeLines.size(); i++) {
+        if(codeLines[i].back() == ':') {
+            branches[codeLines[i].left(codeLines.size())] = i;
+            codeLines[i] = MARKER_LINE;
+
+            qDebug() << "Placed marker on line " << i;
+        }
+    }
+}
 
 vector <Register*> Processor::get_registers(vector<string> operands) {
 
@@ -22,7 +37,7 @@ vector <Register*> Processor::get_registers(vector<string> operands) {
             //cout << "Register added: " << ri << endl;
             return_registers.emplace_back(&registers[ri]);
         }
-        else if (ri == parser->NO_REGISTER) {
+        else if (ri == NO_REGISTER) {
             cout << operands[i] << endl;
             cout << operands[i].substr(1) << endl;
             //cout << "No standard register provided" << endl;

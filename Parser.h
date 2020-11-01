@@ -8,6 +8,10 @@
 #include <array>
 #include <vector>
 #include "consts.h"
+#include <QVector>
+#include <QString>
+
+
 typedef std::vector<bool> binary;
 
 using namespace std;
@@ -23,13 +27,13 @@ public:
         this->arrays_size = arrays_size;
     }
 
-    const int NO_REGISTER = -1;
     static vector <string> split_operands(string line);
     binary from_dec_to_binary(const string& operand);
     static string from_bin_to_string(const binary& binary);
     vector <int> get_registers_indices(vector <string> operands);
     static bool contains_splitters(char character);
     static void divide_dec_by_two(const longArith& num, longArith& result, int& remainder);
+    static void remove_surrounding_spaces(QVector <QString> codeLines);
 };
 
 #endif //PSEUDO_ASSEMBLY_INTERPRETER_PARSER_H
