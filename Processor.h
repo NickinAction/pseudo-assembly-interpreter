@@ -28,10 +28,12 @@ public:
     }
 
     QMap <QString, int> branches;
-    void process_command(string line);
+    void process_command(string line, int &iterator);
     void execute_command(string& instruction, Register* destination, Register* first_op, Register* second_op);
+    bool execute_branch(string& condition);
 
 //private:
+
     const int REGISTER_SIZE = Register::size;
     array <Register, 16> registers;
     Register extra_registers[3];

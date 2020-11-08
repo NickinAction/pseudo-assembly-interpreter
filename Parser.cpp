@@ -13,6 +13,12 @@ using namespace std;
 
 //constexpr const array<char, 4> Parser::splitters = {' ', ',', '\t', '\r'};
 
+string Parser::branch_condition(string str) {
+    if (available_instructions.find(str) != available_instructions.end()) return NO_CONDITION;
+
+    return str.substr(1);
+}
+
 void Parser::remove_surrounding_spaces(QVector <QString> codeLines) {
     for (int i = 0; i < codeLines.size(); i++) {
         codeLines[i].replace(QRegExp("^\\s+"), "");

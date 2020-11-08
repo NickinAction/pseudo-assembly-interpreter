@@ -30,7 +30,8 @@ SOURCES += \
         Processor.cpp\
         Parser.cpp\
         ALU.cpp\
-        Register.cpp
+        Register.cpp \
+    cu.cpp
 
 
 HEADERS += \
@@ -39,7 +40,8 @@ HEADERS += \
         Parser.h \
         ALU.h \
         Register.h \
-        consts.h
+        consts.h \
+    cu.h
 
 
 FORMS += \

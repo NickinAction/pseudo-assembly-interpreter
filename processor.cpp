@@ -56,18 +56,39 @@ vector <Register*> Processor::get_registers(vector<string> operands) {
     return return_registers;
 }
 
-void Processor::process_command(string line) {
+void Processor::process_command(string line, int &iterator) {
+
     auto operands = parser->split_operands(line);
     string instruction = operands[0];
-    operands.erase(operands.begin()); // remove the instruction
-    extra_registers_used = 0;
+    auto condition = Parser::branch_condition(instruction);
 
-    auto cur_registers = get_registers(operands);
+    if (condition != NO_CONDITION) {
+        if (execute_branch(condition)) {
 
-    execute_command(instruction, cur_registers[0], cur_registers[1], cur_registers[2]);
+        }
+    }
+    else {
+        operands.erase(operands.begin()); // remove the instruction
+        extra_registers_used = 0;
 
-    //print_state();
+        auto cur_registers = get_registers(operands);
 
+        execute_command(instruction, cur_registers[0], cur_registers[1], cur_registers[2]);
+    }
+
+
+}
+
+bool Processor::execute_branch(string &condition) {
+    if(condition == "") {
+        return true;
+    }
+    else if (condition == "eq") {
+        return this->CPSR.value[Flags::Z] == 1;
+    }
+    else if (condition == "ne") {
+        return this->CPSR.value[Flags::Z] == 0;
+    }
 }
 
 Register* Processor::get_extra_register() {

@@ -27,6 +27,7 @@ public:
         this->arrays_size = arrays_size;
     }
 
+    static string branch_condition(string str);
     static vector <string> split_operands(string line);
     binary from_dec_to_binary(const string& operand);
     static string from_bin_to_string(const binary& binary);

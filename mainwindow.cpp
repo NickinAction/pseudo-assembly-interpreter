@@ -48,7 +48,9 @@ void MainWindow::execute() {
     processor->collect_markers(codeLines);
 
     for(int i = 0; i < codeLines.size(); i++) {
-        processor->process_command(codeLines[i].toStdString());
+        if (codeLines[i] == MARKER_LINE) continue;
+
+        processor->process_command(codeLines[i].toStdString(), i);
     }
 
     displayState();
