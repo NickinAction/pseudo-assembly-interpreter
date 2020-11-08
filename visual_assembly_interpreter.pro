@@ -31,7 +31,8 @@ SOURCES += \
         Parser.cpp\
         ALU.cpp\
         Register.cpp \
-    cu.cpp
+    cu.cpp \
+    registermemory.cpp
 
 
 HEADERS += \
@@ -41,7 +42,8 @@ HEADERS += \
         ALU.h \
         Register.h \
         consts.h \
-    cu.h
+    cu.h \
+    registermemory.h
 
 
 FORMS += \

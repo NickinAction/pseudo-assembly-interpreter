@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QLabel>
 #include <QString>
+#include "parser.h"
 
 using namespace std;
 
@@ -13,10 +14,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     ui->codeArea->setFixedWidth(600);
 
-    processor = new Processor();
+    Parser* parser = new Parser(Register::size);
+    cu = new CU();
+    cu->setParser(parser);
 
-
-    for (int i = 0; i < processor->registers.size(); i++) {
+    for (int i = 0; i < cu->processor->registers.size(); i++) {
 
         QLabel *label = new QLabel(this);
         labels.push_back(label);
@@ -37,21 +39,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::execute() {
+void MainWindow::programStart() {
 
     QString labelText = ui->codeArea->toPlainText();
 
     QVector <QString> codeLines = readInput(labelText);
 
-    Parser::remove_surrounding_spaces(codeLines);
-
-    processor->collect_markers(codeLines);
-
-    for(int i = 0; i < codeLines.size(); i++) {
-        if (codeLines[i] == MARKER_LINE) continue;
-
-        processor->process_command(codeLines[i].toStdString(), i);
-    }
+    cu->execute(codeLines);
 
     displayState();
 }

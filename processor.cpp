@@ -7,20 +7,10 @@
 #include <QMap>
 #include "consts.h"
 #include <QDebug>
+#include "Processor.h"
+#include "registermemory.h"
 
 using namespace std;
-
-
-void Processor::collect_markers(QVector <QString> &codeLines) {
-    for (int i = 0; i < codeLines.size(); i++) {
-        if(codeLines[i].back() == ':') {
-            branches[codeLines[i].left(codeLines.size())] = i;
-            codeLines[i] = MARKER_LINE;
-
-            qDebug() << "Placed marker on line " << i;
-        }
-    }
-}
 
 vector <Register*> Processor::get_registers(vector<string> operands) {
 
@@ -56,15 +46,15 @@ vector <Register*> Processor::get_registers(vector<string> operands) {
     return return_registers;
 }
 
-void Processor::process_command(string line, int &iterator) {
+void Processor::process_command(vector<string> operands){
 
-    auto operands = parser->split_operands(line);
     string instruction = operands[0];
     auto condition = Parser::branch_condition(instruction);
 
     if (condition != NO_CONDITION) {
+        string branch_name = operands[1];
         if (execute_branch(condition)) {
-
+            //TODO
         }
     }
     else {
@@ -79,17 +69,6 @@ void Processor::process_command(string line, int &iterator) {
 
 }
 
-bool Processor::execute_branch(string &condition) {
-    if(condition == "") {
-        return true;
-    }
-    else if (condition == "eq") {
-        return this->CPSR.value[Flags::Z] == 1;
-    }
-    else if (condition == "ne") {
-        return this->CPSR.value[Flags::Z] == 0;
-    }
-}
 
 Register* Processor::get_extra_register() {
     extra_registers_used++;
@@ -108,23 +87,5 @@ void Processor::execute_command(string &instruction, Register* destination, Regi
     }
     else {
         throw runtime_error("Unrecognised command");
-    }
-}
-
-void Processor::print_state() {
-    for (unsigned i = 0; i < registers.size(); ++i) {
-        cout << "R" << i << ": ";
-        for (int j = Register::size-1; j >= 0; j--) {
-            cout << registers[i].value[j];
-        }
-        cout << endl;
-    }
-
-    for (int k = 0; k < 3; ++k) {
-        cout << "EXTRA " << k << ": ";
-        for (int j = Register::size-1; j >= 0; j--) {
-            cout << extra_registers[k].value[j];
-        }
-        cout << endl;
     }
 }

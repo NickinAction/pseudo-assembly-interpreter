@@ -15,7 +15,6 @@ using namespace std;
 
 string Parser::branch_condition(string str) {
     if (available_instructions.find(str) != available_instructions.end()) return NO_CONDITION;
-
     return str.substr(1);
 }
 

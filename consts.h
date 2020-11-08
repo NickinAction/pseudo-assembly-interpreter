@@ -12,6 +12,7 @@
 
 typedef std::vector<int> longArith;
 
+
 const QString MARKER_LINE = "MARKER";
 const std::string NO_CONDITION = "NO CONDITION";
 
@@ -22,5 +23,6 @@ std::unordered_set<std::string> available_instructions = {"add", "mov", "sub"};
 enum Flags {
    V = 28, C = 29, Z = 30, N = 31
 };
+
 
 #endif //PSEUDO_ASSEMBLY_INTERPRETER_CONSTS_H
